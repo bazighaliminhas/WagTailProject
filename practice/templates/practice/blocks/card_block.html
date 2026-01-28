@@ -1,0 +1,17 @@
+{% load wagtailimages_tags %}
+
+<div class="col-md-4">
+  <div class="card h-100 shadow-sm">
+    {% if value.image %}
+      {% image value.image fill-400x250 as img %}
+      <img src="{{ img.url }}" class="card-img-top" alt="{{ value.title }}">
+    {% else %}
+      <img src="https://via.placeholder.com/400x250" class="card-img-top" alt="{{ value.title }}">
+    {% endif %}
+    <div class="card-body">
+      <h5 class="card-title">{{ value.title }}</h5>
+      <p class="card-text">{{ value.description }}</p>
+      <p class="card-date">Published: {{ value.publish_date|date:"d M Y" }}</p>
+    </div>
+  </div>
+</div>

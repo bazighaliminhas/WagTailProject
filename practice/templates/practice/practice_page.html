@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+
+<!-- HEADER / HERO SECTION -->
+<section class="hero text-center">
+  <div class="container">
+    <h1 class="mb-3">{{ page.hero_title }}</h1>
+    <p class="lead">{{ page.hero_subtitle }}</p>
+    <p><strong>Publish Date:</strong> <span>{{ page.hero_publish_date|date:"d F Y" }}</span></p>
+  </div>
+</section>
+
+<!-- ABOUT SECTION -->
+<section class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <h2>{{ page.about_title }}</h2>
+        {{ page.about_content|richtext }}
+      </div>
+      <div class="col-md-4">
+        <ul class="list-group">
+          <li class="list-group-item"><strong>Author:</strong> {{ page.author }}</li>
+          <li class="list-group-item"><strong>Category:</strong> {{ page.category }}</li>
+          <li class="list-group-item"><strong>Status:</strong> {{ page.status }}</li>
+          <li class="list-group-item"><strong>Last Updated:</strong> {{ page.last_updated|date:"d M Y" }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CARDS / LISTING SECTION -->
+<section class="py-5 bg-light">
+  <div class="container">
+    <h2 class="mb-4">Featured Articles (Cards)</h2>
+    <div class="row g-4">
+      {% for block in page.featured_articles %}
+        {% include_block block %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- FORM SECTION -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="mb-4">{{ page.form_section_title }}</h2>
+    <p class="text-muted">For a working form, please create a Contact Form Page as a child of this page.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="py-4 bg-dark text-white text-center">
+  <div class="container">
+    <p class="mb-0">© 2025 Wagtail Practice Page | For Intern Testing</p>
+  </div>
+</footer>
+
+{% endblock %}
