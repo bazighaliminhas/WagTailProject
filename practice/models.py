@@ -10,6 +10,7 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 from wagtail.contrib.forms.panels import FormSubmissionsPanel
 from modelcluster.fields import ParentalKey
+from django.utils.translation import gettext_lazy as _
 
 
 # ============================================
@@ -111,6 +112,13 @@ class PracticePage(Page):
         help_text="Form section title"
     )
     
+    # ✨ NEW: VIEW COUNTER
+    view_count = models.IntegerField(
+        default=0,
+        verbose_name=_("View Count"),
+        help_text=_("Number of times this page has been viewed")
+    )
+    
     # CONTENT PANELS (Admin Interface)
     content_panels = Page.content_panels + [
         MultiFieldPanel(
@@ -142,14 +150,27 @@ class PracticePage(Page):
         FieldPanel('featured_articles'),
         # MultiFieldPanel(
         #     [
-        #         FieldPanel('featured_articles),
+        #         FieldPanel('featured_articles'),
         #         FieldPanel('featured_articles_ar'),
         #     ],
         #     heading="Featured Articles (Both Languages)",
         #     classname="collapsible"
         # ),
         FieldPanel('form_section_title'),
+        FieldPanel('view_count'),  # ✨ Admin mein view counter dikhega
     ]
+    
+    # ✨ Override serve method to count views
+    def serve(self, request):
+        """
+        Increment view count every time page is viewed
+        """
+        # Increment view count
+        self.view_count += 1
+        self.save(update_fields=['view_count'])
+        
+        # Call parent serve method
+        return super().serve(request)
     
     class Meta:
         verbose_name = "Practice Page"

@@ -159,6 +159,33 @@
             font-size: 1rem;
         }
 
+        /* View Counter Styling */
+        .view-counter {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .view-counter strong {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+            color: white;
+        }
+
+        .view-counter .count {
+            font-size: 2.5rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
         /* Featured Articles */
         .featured-articles {
             margin-top: 40px;
@@ -403,6 +430,15 @@
             <div class="sidebar-item">
                 <strong>{% trans "Last Updated" %}</strong>
                 <p>{{ page.last_published_at|date:"d M Y" }}</p>
+            </div>
+
+            <!-- ✨ View Counter -->
+            <div class="view-counter">
+                <strong>{% trans "Total Views" %}</strong>
+                <div class="count">
+                    <span>👁️</span>
+                    <span>{{ page.view_count }}</span>
+                </div>
             </div>
         </aside>
     </div>
