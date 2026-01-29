@@ -35,7 +35,7 @@ class CardBlock(StructBlock):
 
 class PracticePage(Page):
     """
-    Main practice page model based on the HTML template
+    Main practice page model with translation support
     """
     
     # HERO SECTION FIELDS
@@ -83,14 +83,25 @@ class PracticePage(Page):
         help_text="Last update date"
     )
     
-    # CARDS SECTION (StreamField)
-    featured_articles = StreamField(
+    # CARDS SECTION - SEPARATE STREAMFIELDS FOR EACH LANGUAGE
+    featured_articles_en = StreamField(
         [
             ('card', CardBlock()),
         ],
         blank=True,
         use_json_field=True,
-        help_text="Add featured article cards"
+        help_text="Add featured article cards (English)",
+        verbose_name="Featured Articles (English)"
+    )
+    
+    featured_articles_ar = StreamField(
+        [
+            ('card', CardBlock()),
+        ],
+        blank=True,
+        use_json_field=True,
+        help_text="Add featured article cards (Arabic)",
+        verbose_name="Featured Articles (Arabic)"
     )
     
     # FORM SECTION TITLE
@@ -128,7 +139,14 @@ class PracticePage(Page):
             heading="Sidebar Information",
             classname="collapsible"
         ),
-        FieldPanel('featured_articles'),
+        MultiFieldPanel(
+            [
+                FieldPanel('featured_articles_en'),
+                FieldPanel('featured_articles_ar'),
+            ],
+            heading="Featured Articles (Both Languages)",
+            classname="collapsible"
+        ),
         FieldPanel('form_section_title'),
     ]
     

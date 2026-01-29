@@ -24,9 +24,14 @@ BASE_DIR = PROJECT_DIR.parent
 # Application definition
 
 INSTALLED_APPS = [
+    # Add these BEFORE wagtail apps
+    'wagtail_modeltranslation',
+    
     "practice",  # Add this line at the top of INSTALLED_APPS
     "home",
     "search",
+    
+    'modeltranslation',
     
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -39,6 +44,10 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail.admin",
     "wagtail",
+    
+    'wagtail_localize',  # Add this
+    'wagtail_localize.locales',  # Add this
+    
     "modelcluster",
     "taggit",
     "django_filters",
@@ -53,6 +62,9 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    'mysite.middleware.LanguageMiddleware',  # Your custom middleware
+    "django.middleware.locale.LocaleMiddleware",  # Add this line
+    "mysite.middleware.LanguageMiddleware",  # Add this
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -181,3 +193,41 @@ WAGTAILADMIN_BASE_URL = "http://example.com"
 # if untrusted users are allowed to upload files -
 # see https://docs.wagtail.org/en/stable/advanced_topics/deploying.html#user-uploaded-files
 WAGTAILDOCS_EXTENSIONS = ['csv', 'docx', 'key', 'odt', 'pdf', 'pptx', 'rtf', 'txt', 'xlsx', 'zip']
+
+
+# Language Configuration
+LANGUAGE_CODE = 'en'  # Default language
+
+LANGUAGES = (
+    ('en', 'English'),
+    ('ar', 'Arabic'),
+)
+
+# Internationalization
+# https://docs.djangoproject.com/en/stable/topics/i18n/
+
+LANGUAGE_CODE = 'en'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+# Languages
+LANGUAGES = [
+    ('en', 'English'),
+    ('ar', 'Arabic'),
+]
+
+# Locale paths (for translation files)
+LOCALE_PATHS = [
+    BASE_DIR / 'locale',
+]
+
+# Wagtail Localization
+WAGTAIL_I18N_ENABLED = True
+
+WAGTAIL_CONTENT_LANGUAGES = LANGUAGES
