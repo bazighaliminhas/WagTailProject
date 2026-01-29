@@ -17,6 +17,7 @@ class PracticePageTR(TranslationOptions):
         'category',
         'status',
         'form_section_title',
+        'featured_articles',
     )
 
 

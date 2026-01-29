@@ -84,7 +84,7 @@ class PracticePage(Page):
     )
     
     # CARDS SECTION - SEPARATE STREAMFIELDS FOR EACH LANGUAGE
-    featured_articles_en = StreamField(
+    featured_articles = StreamField(
         [
             ('card', CardBlock()),
         ],
@@ -94,15 +94,15 @@ class PracticePage(Page):
         verbose_name="Featured Articles (English)"
     )
     
-    featured_articles_ar = StreamField(
-        [
-            ('card', CardBlock()),
-        ],
-        blank=True,
-        use_json_field=True,
-        help_text="Add featured article cards (Arabic)",
-        verbose_name="Featured Articles (Arabic)"
-    )
+    # featured_articles_ar = StreamField(
+    #     [
+    #         ('card', CardBlock()),
+    #     ],
+    #     blank=True,
+    #     use_json_field=True,
+    #     help_text="Add featured article cards (Arabic)",
+    #     verbose_name="Featured Articles (Arabic)"
+    # )
     
     # FORM SECTION TITLE
     form_section_title = models.CharField(
@@ -139,14 +139,15 @@ class PracticePage(Page):
             heading="Sidebar Information",
             classname="collapsible"
         ),
-        MultiFieldPanel(
-            [
-                FieldPanel('featured_articles_en'),
-                FieldPanel('featured_articles_ar'),
-            ],
-            heading="Featured Articles (Both Languages)",
-            classname="collapsible"
-        ),
+        FieldPanel('featured_articles'),
+        # MultiFieldPanel(
+        #     [
+        #         FieldPanel('featured_articles),
+        #         FieldPanel('featured_articles_ar'),
+        #     ],
+        #     heading="Featured Articles (Both Languages)",
+        #     classname="collapsible"
+        # ),
         FieldPanel('form_section_title'),
     ]
     
